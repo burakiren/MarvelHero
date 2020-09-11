@@ -1,6 +1,7 @@
 package com.burakiren.data
 
 import com.burakiren.data.repository.HeroRemoteImpl
+import com.burakiren.domain.model.ComicItem
 import com.burakiren.domain.model.Hero
 import com.burakiren.domain.repository.MarvelRepository
 import io.reactivex.Completable
@@ -25,6 +26,13 @@ class HeroRepositoryImpl(
 
     override fun getAllRemoteHeroes(): Single<List<Hero>> {
         return heroRemoteImpl.getHeroes()
+            .map {
+                it
+            }
+    }
+
+    override fun getAllComics(id: Int): Single<List<Hero>> {
+        return heroRemoteImpl.getComics(id)
             .map {
                 it
             }

@@ -4,5 +4,6 @@ data class Hero(
     val id: Int,
     val name: String,
     val description: String,
-    val thumbnail: ThumbnailResponse
+    val thumbnail: ThumbnailResponse,
+    val comics: Comic?
 )

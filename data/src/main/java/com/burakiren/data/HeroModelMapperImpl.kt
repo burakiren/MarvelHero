@@ -6,7 +6,7 @@ import com.burakiren.domain.repository.HeroModelMapper
 
 class HeroModelMapperImpl : HeroModelMapper<HeroEntity, Hero> {
     override fun fromEntity(from: HeroEntity) =
-        Hero(from.id, from.name, from.description, ThumbnailResponse(from.path, from.extension))
+        Hero(from.id, from.name, from.description, ThumbnailResponse(from.path, from.extension), null)
 
     override fun toEntity(from: Hero) =
         HeroEntity(

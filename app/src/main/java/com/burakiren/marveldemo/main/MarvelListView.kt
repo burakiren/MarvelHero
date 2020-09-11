@@ -1,6 +1,7 @@
 package com.burakiren.marveldemo.main
 
 import android.content.Context
+import com.burakiren.domain.model.ComicItem
 import com.burakiren.domain.model.Hero
 import com.burakiren.marveldemo.MarvelApp
 import com.burakiren.marveldemo.R
@@ -37,10 +38,13 @@ class MarvelListView : BaseView(), MarvelListContract.View {
     }
 
     private fun populateData(heroes: List<Hero>) {
-
-        val myRecyclerViewAdapter =
+        val heroesAdapter =
             HeroesAdapter(heroes, context)
-        rv_heroes.adapter = myRecyclerViewAdapter
+        rv_heroes.adapter = heroesAdapter
+
+        with(presenter) {
+            fetchComics(heroes[0].id)
+        }
     }
 
     override fun onLoadHeroesSuccess(heroes: List<Hero>) {
@@ -49,6 +53,12 @@ class MarvelListView : BaseView(), MarvelListContract.View {
 
     override fun onLoadHeroesError(throwable: Throwable) {
         println(throwable.message)
+    }
+
+    override fun onLoadComicsSuccess(comics: List<Hero>) {
+        val comicsAdapter =
+            ComicsAdapter(comics, context)
+        rv_comics.adapter = comicsAdapter
     }
 
     override fun showLoading() {

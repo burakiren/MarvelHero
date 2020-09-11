@@ -11,4 +11,6 @@ interface MarvelRepository {
     fun getAllHeroes(): Single<List<Hero>>
 
     fun getAllRemoteHeroes(): Single<List<Hero>>
+
+    fun getAllComics(id: Int): Single<List<Hero>>
 }

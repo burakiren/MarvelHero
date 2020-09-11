@@ -11,4 +11,9 @@ class HeroRemoteImpl constructor(private val api: ApiService) : HeroDataStore {
         return api.getHeroes().map { it.data.results }
     }
 
+    override fun getComics(id: Int): Single<List<Hero>> {
+
+        return api.getComics(id).map { it.data.results }
+    }
+
 }
