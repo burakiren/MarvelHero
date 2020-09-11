@@ -13,7 +13,7 @@ interface MarvelListContract {
     }
 
     interface Presenter {
-        fun loadHeroes()
-        fun fetchComics(id: Int)
+        fun loadHeroes(offset: Int)
+        fun fetchComics(id: Int, offset: Int)
     }
 }

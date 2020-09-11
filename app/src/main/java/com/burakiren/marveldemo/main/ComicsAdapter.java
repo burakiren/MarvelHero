@@ -12,6 +12,7 @@ import com.burakiren.marveldemo.BR;
 import com.burakiren.marveldemo.R;
 import com.burakiren.marveldemo.databinding.ComicItemBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComicsAdapter extends RecyclerView.Adapter<ComicsAdapter.ViewHolder> {
@@ -19,7 +20,7 @@ public class ComicsAdapter extends RecyclerView.Adapter<ComicsAdapter.ViewHolder
     private List<Hero> dataModelList;
     private Context context;
 
-    public ComicsAdapter(List<Hero> dataModelList, Context ctx) {
+    public ComicsAdapter(ArrayList<Hero> dataModelList, Context ctx) {
         this.dataModelList = dataModelList;
         context = ctx;
     }
@@ -58,5 +59,11 @@ public class ComicsAdapter extends RecyclerView.Adapter<ComicsAdapter.ViewHolder
             itemRowBinding.setVariable(BR.data, obj);
             itemRowBinding.executePendingBindings();
         }
+    }
+
+    public void setItems(List<Hero> heroes) {
+        this.dataModelList.clear();
+        this.dataModelList.addAll(heroes);
+        notifyDataSetChanged();
     }
 }

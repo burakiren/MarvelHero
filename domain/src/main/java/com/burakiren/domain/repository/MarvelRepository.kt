@@ -10,7 +10,7 @@ interface MarvelRepository {
 
     fun getAllHeroes(): Single<List<Hero>>
 
-    fun getAllRemoteHeroes(): Single<List<Hero>>
+    fun getAllRemoteHeroes(offset: Int): Single<List<Hero>>
 
-    fun getAllComics(id: Int): Single<List<Hero>>
+    fun getAllComics(id: Int, offset: Int): Single<List<Hero>>
 }

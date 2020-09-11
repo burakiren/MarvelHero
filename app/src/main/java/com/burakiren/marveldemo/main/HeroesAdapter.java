@@ -2,6 +2,7 @@ package com.burakiren.marveldemo.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
@@ -11,17 +12,22 @@ import com.burakiren.domain.model.Hero;
 import com.burakiren.marveldemo.BR;
 import com.burakiren.marveldemo.R;
 import com.burakiren.marveldemo.databinding.HorizontalHeroesItemBinding;
+import com.burakiren.marveldemo.helper.OnItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.ViewHolder> {
 
     private List<Hero> dataModelList;
     private Context context;
+    private final OnItemClickListener listener;
 
-    public HeroesAdapter(List<Hero> dataModelList, Context ctx) {
+
+    public HeroesAdapter(ArrayList<Hero> dataModelList, Context ctx, OnItemClickListener listener) {
         this.dataModelList = dataModelList;
         context = ctx;
+        this.listener = listener;
     }
 
     @Override
@@ -37,7 +43,7 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Hero dataModel = dataModelList.get(position);
-        holder.bind(dataModel);
+        holder.bind(dataModel, listener);
     }
 
 
@@ -54,9 +60,21 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.ViewHolder
             this.itemRowBinding = itemRowBinding;
         }
 
-        public void bind(Object obj) {
+        public void bind(Object obj, final OnItemClickListener listener) {
             itemRowBinding.setVariable(BR.data, obj);
             itemRowBinding.executePendingBindings();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick((Hero) obj);
+                }
+            });
+
         }
+    }
+
+    public void setItems(List<Hero> heroes) {
+        this.dataModelList.addAll(heroes);
+        notifyDataSetChanged();
     }
 }

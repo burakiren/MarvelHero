@@ -13,8 +13,8 @@ class MarvelListPresenter @Inject constructor(
 ) : BasePresenter<MarvelListView>(), MarvelListContract.Presenter {
 
 
-    override fun loadHeroes() {
-        disposables.add(getHeroesUseCase.getAllHeroes()
+    override fun loadHeroes(offset: Int) {
+        disposables.add(getHeroesUseCase.getAllHeroes(offset)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { view?.showLoading() }
@@ -23,8 +23,8 @@ class MarvelListPresenter @Inject constructor(
         )
     }
 
-    override fun fetchComics(id: Int) {
-        disposables.add(getComicsUseCase.getAllComics(id)
+    override fun fetchComics(id: Int, offset: Int) {
+        disposables.add(getComicsUseCase.getAllComics(id, offset)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { view?.showLoading() }

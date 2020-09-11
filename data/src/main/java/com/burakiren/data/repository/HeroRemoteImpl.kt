@@ -6,14 +6,14 @@ import io.reactivex.Single
 
 class HeroRemoteImpl constructor(private val api: ApiService) : HeroDataStore {
 
-    override fun getHeroes(): Single<List<Hero>> {
+    override fun getHeroes(offset: Int): Single<List<Hero>> {
 
-        return api.getHeroes().map { it.data.results }
+        return api.getHeroes(offset).map { it.data.results }
     }
 
-    override fun getComics(id: Int): Single<List<Hero>> {
+    override fun getComics(id: Int, offset: Int): Single<List<Hero>> {
 
-        return api.getComics(id).map { it.data.results }
+        return api.getComics(id, offset).map { it.data.results }
     }
 
 }

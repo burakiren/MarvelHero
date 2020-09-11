@@ -24,15 +24,15 @@ class HeroRepositoryImpl(
             }
     }
 
-    override fun getAllRemoteHeroes(): Single<List<Hero>> {
-        return heroRemoteImpl.getHeroes()
+    override fun getAllRemoteHeroes(offset: Int): Single<List<Hero>> {
+        return heroRemoteImpl.getHeroes(offset)
             .map {
                 it
             }
     }
 
-    override fun getAllComics(id: Int): Single<List<Hero>> {
-        return heroRemoteImpl.getComics(id)
+    override fun getAllComics(id: Int, offset: Int): Single<List<Hero>> {
+        return heroRemoteImpl.getComics(id, offset)
             .map {
                 it
             }
