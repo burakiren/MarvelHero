@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+ext {
+    androidArchVersion = "1.0.0"
+    retrofit_version = '2.9.0'
+}
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation project(":domain")
+
+    // Room Database
+    implementation "android.arch.persistence.room:runtime:$androidArchVersion"
+    implementation "android.arch.persistence.room:rxjava2:$androidArchVersion"
+    kapt "android.arch.persistence.room:compiler:$androidArchVersion"
+
+    //retrofit
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    api 'com.squareup.okhttp3:logging-interceptor:4.2.2'
+
+    // JUnit
+    testImplementation libs.junit
+
+    // Mockito Kotlin
+    testImplementation libs.mockitoKotlin
+}
