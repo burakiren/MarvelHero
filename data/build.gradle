@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 ext {
     androidArchVersion = "1.0.0"
-    retrofit_version = '2.9.0'
+    retrofit_version = '2.4.0'
 }
 
 android {
@@ -46,9 +46,13 @@ dependencies {
     api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     api 'com.squareup.okhttp3:logging-interceptor:4.2.2'
 
+    implementation("com.squareup.okhttp3:okhttp:3.11.0")
+
     // JUnit
     testImplementation libs.junit
 
     // Mockito Kotlin
     testImplementation libs.mockitoKotlin
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+
 }

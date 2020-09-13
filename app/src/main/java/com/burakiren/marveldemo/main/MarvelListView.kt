@@ -10,7 +10,6 @@ import com.burakiren.marveldemo.base.MvpPresenter
 import com.burakiren.marveldemo.databinding.ActivityMainBinding
 import com.burakiren.marveldemo.databinding.FragmentMainBinding
 import com.burakiren.marveldemo.helper.OnItemClickListener
-import com.burakiren.marveldemo.helper.RecyclerViewPaginator
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.util.*
 import javax.inject.Inject
@@ -26,7 +25,9 @@ class MarvelListView : BaseView(), MarvelListContract.View {
     @Inject
     lateinit var presenter: MarvelListPresenter
 
+    @Inject
     lateinit var comicsAdapter: ComicsAdapter
+
     lateinit var heroesAdapter: HeroesAdapter
 
 
@@ -49,9 +50,6 @@ class MarvelListView : BaseView(), MarvelListContract.View {
                     fetchComics(it.id, 0)
                 })
         rv_heroes.adapter = heroesAdapter
-
-        comicsAdapter =
-            ComicsAdapter(emptyList<Hero>().toMutableList() as ArrayList<Hero>?, context)
         rv_comics.adapter = comicsAdapter
     }
 
@@ -66,7 +64,9 @@ class MarvelListView : BaseView(), MarvelListContract.View {
 
     private fun populateData(heroes: List<Hero>) {
         heroesAdapter.setItems(heroes)
-        rv_heroes.addOnScrollListener(object : RecyclerViewPaginator(rv_heroes) {
+
+        // Paging integrating
+        /*rv_heroes.addOnScrollListener(object : RecyclerViewPaginator(rv_heroes) {
             override fun isLastPage(): Boolean {
                 return false
             }
@@ -74,7 +74,7 @@ class MarvelListView : BaseView(), MarvelListContract.View {
             override fun loadMore(start: Long?, count: Long?) {
                 presenter.loadHeroes((count!!.toInt() / 20) * 5)
             }
-        })
+        })*/
         fetchComics(heroes[0].id, 0)
 
     }
@@ -95,7 +95,8 @@ class MarvelListView : BaseView(), MarvelListContract.View {
 
         comicsAdapter.setItems(comics)
 
-        rv_comics.addOnScrollListener(object : RecyclerViewPaginator(rv_comics) {
+        // Paging integrating
+        /* rv_comics.addOnScrollListener(object : RecyclerViewPaginator(rv_comics) {
             override fun isLastPage(): Boolean {
                 return false
             }
@@ -103,7 +104,7 @@ class MarvelListView : BaseView(), MarvelListContract.View {
             override fun loadMore(start: Long?, count: Long?) {
                 fetchComics(id = selectedCharacterId, offset = (count!!.toInt() / 20) * 5)
             }
-        })
+        }) */
     }
 
     override fun showLoading() {

@@ -4,6 +4,7 @@ import android.content.Context
 import com.burakiren.marveldemo.BuildConfig
 import okhttp3.CacheControl
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 import okhttp3.internal.and
 import java.io.IOException
@@ -121,5 +122,38 @@ fun isOnline(): Boolean {
     } catch (e: UnknownHostException) {
         println("Network Connection : " + false)
         false
+    }
+}
+
+fun provideCacheInterceptor(): Interceptor {
+    return object : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val response = chain.proceed(chain.request())
+            val maxAge =
+                60 * 60 * 24 // read from cache for 60 seconds even if there is internet connection
+
+            return response.newBuilder()
+                .header("Cache-Control", "public, max-age=$maxAge")
+                .removeHeader("Pragma")
+                .build()
+        }
+    }
+}
+
+fun provideOfflineCacheInterceptor(): Interceptor {
+    return object : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response {
+            var request: Request = chain.request()
+            if (!isOnline()) {
+                val maxStale = 60 * 60 * 24 * 30 // Offline cache available for 30 days
+                request = request.newBuilder()
+                    .header("Cache-Control", "public, only-if-cached, max-stale=$maxStale")
+                    .removeHeader("Pragma")
+                    .build()
+            }
+            return chain.proceed(request)
+        }
     }
 }

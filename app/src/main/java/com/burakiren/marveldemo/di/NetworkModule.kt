@@ -12,7 +12,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -27,17 +26,26 @@ class NetworkModule {
         val httpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val httpCacheDirectory = File(context.cacheDir, "cache_file")
-        val cache = Cache(httpCacheDirectory, 20 * 1024 * 1024)
+        val httpCacheDirectory = File(context.cacheDir, "offlineCache")
+        val cache = Cache(httpCacheDirectory, 10 * 1024 * 1024)
 
         return OkHttpClient.Builder()
-            .addNetworkInterceptor(CacheInterceptor(context))
-            .addInterceptor(MarvelHashInterceptor())
-            .addInterceptor(httpLoggingInterceptor)
+            .addNetworkInterceptor(MarvelHashInterceptor())
+            .addNetworkInterceptor { chain ->
+                var request = chain.request()
+                request = if (isOnline())
+                    request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
+                else
+                    request.newBuilder().header(
+                        "Cache-Control",
+                        "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
+                    ).build()
+                chain.proceed(request)
+            }
+            //.addInterceptor(provideOfflineCacheInterceptor())
+            //.addNetworkInterceptor(provideCacheInterceptor())
             .cache(cache)
-            .connectTimeout(40, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
+            //.addInterceptor(httpLoggingInterceptor)
             .build()
     }
 
