@@ -1,4 +1,4 @@
-package com.burakiren.marveldemo.main
+package com.burakiren.marveldemo.ui.marvel
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,10 @@ import com.burakiren.marveldemo.base.BaseView
 import com.burakiren.marveldemo.base.MvpPresenter
 import com.burakiren.marveldemo.databinding.ActivityMainBinding
 import com.burakiren.marveldemo.databinding.FragmentMainBinding
+import com.burakiren.marveldemo.di.ContextModule
 import com.burakiren.marveldemo.helper.OnItemClickListener
+import com.burakiren.marveldemo.ui.marvel.di.DaggerMarvelListComponent
+import com.burakiren.marveldemo.ui.marvel.di.MarvelListModule
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.util.*
 import javax.inject.Inject
@@ -35,6 +38,7 @@ class MarvelListView : BaseView(), MarvelListContract.View {
         DaggerMarvelListComponent.builder()
             .appComponent(MarvelApp.component)
             .marvelListModule(MarvelListModule())
+            .contextModule(ContextModule(context))
             .build()
             .inject(this)
     }

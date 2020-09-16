@@ -7,8 +7,8 @@ import com.burakiren.domain.model.ThumbnailResponse
 import com.burakiren.domain.repository.MarvelRepository
 import com.burakiren.domain.usecase.GetComicsUseCase
 import com.burakiren.domain.usecase.GetHeroesUseCase
-import com.burakiren.marveldemo.main.MarvelListPresenter
-import com.burakiren.marveldemo.main.MarvelListView
+import com.burakiren.marveldemo.ui.marvel.MarvelListPresenter
+import com.burakiren.marveldemo.ui.marvel.MarvelListView
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Single

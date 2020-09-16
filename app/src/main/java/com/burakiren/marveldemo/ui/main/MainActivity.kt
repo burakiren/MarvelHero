@@ -1,4 +1,4 @@
-package com.burakiren.marveldemo
+package com.burakiren.marveldemo.ui.main
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.NavHostFragment
+import com.burakiren.marveldemo.R
 
 
 class MainActivity : AppCompatActivity() {

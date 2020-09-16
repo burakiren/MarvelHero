@@ -1,4 +1,4 @@
-package com.burakiren.marveldemo.main;
+package com.burakiren.marveldemo.ui.marvel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -66,4 +66,6 @@ public class ComicsAdapter extends RecyclerView.Adapter<ComicsAdapter.ViewHolder
         this.dataModelList.addAll(heroes);
         notifyDataSetChanged();
     }
+
+
 }

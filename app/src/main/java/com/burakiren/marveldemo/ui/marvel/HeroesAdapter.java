@@ -1,4 +1,4 @@
-package com.burakiren.marveldemo.main;
+package com.burakiren.marveldemo.ui.marvel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.ViewHolder> {
+
 
     private List<Hero> dataModelList;
     private Context context;

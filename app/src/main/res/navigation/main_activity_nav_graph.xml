@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.burakiren.marveldemo.main.MarvelListView"
+        android:name="com.burakiren.marveldemo.ui.marvel.MarvelListView"
         android:label="MainFragment" />
 
 

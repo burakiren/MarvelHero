@@ -1,4 +1,4 @@
-package com.burakiren.marveldemo.main
+package com.burakiren.marveldemo.ui.marvel
 
 import com.burakiren.domain.model.Hero
 
